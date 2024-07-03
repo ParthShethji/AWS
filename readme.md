@@ -48,3 +48,38 @@ c5.large can be broken down into the following elements.
 | Memory optimized     | Designed to deliver fast performance for workloads that process large data sets in memory.                            |
 | Accelerated computing| Use hardware accelerators or co-processors to perform functions such as floating-point number calculations, graphics processing, or data pattern matching more efficiently than is possible with conventional CPUs. |
 | Storage optimized    | Designed for workloads that require high, sequential read and write access to large data sets on local storage. They are optimized to deliver tens of thousands of low-latency random I/O operations per second (IOPS) to applications that replicate their data across different instance. |
+
+
+
+By default, your EC2 instances are placed in a network called the default Amazon Virtual Private Cloud (VPC).  Any resource you put inside the default VPC will be public and accessible by the internet, so you shouldn’t place any customer data or private information inside of it.
+
+
+![alt text](images/image2.png)
+
+
+### Containerisation
+.A container is a standardized unit that packages up your code and all of its dependencies. This package is designed to run reliably on any platform, because the container creates its own independent environment. This makes it easy to carry workloads from one place to another, such as from development to production or from on-premises to the cloud.  
+
+
+### DOCKER
+Docker is a popular container runtime that simplifies the management of the entire operating system stack needed for container isolation, including networking and storage. Docker makes it easy to create, package, deploy, and run containers.
+![alt text](image3.png)
+Containers share the same operating system and kernel as the host they exist on, whereas virtual machines contain their operating system.
+
+
+Amazon ECS is an end-to-end container orchestration service that allows you to quickly spin up new containers and manage them across a cluster of EC2 instances.
+To run and manage your containers, you need to install the Amazon ECS Container Agent on your EC2 instances. This agent is responsible for communicating back to the Amazon ECS service about cluster management details.  An instance with the container agent installed is often called a container instance.
+
+
+To prepare your application to run on Amazon ECS, you create a task definition. The task definition is a text file, in JSON format, that describes one or more containers. A task definition is similar to a blueprint that describes the resources you need to run that container, such as CPU, memory, ports, images, storage, and networking information.
+
+### Kubernates
+Kubernetes is a portable platform for managing containerized workloads and services
+
+## EC2, ECS, and EKS Terminology
+
+| Concept                  | Amazon ECS                                | Amazon EKS                     |
+|--------------------------|-------------------------------------------|--------------------------------|
+| Instance with ECS Agent  | Container instance                        | Worker node                    |
+| Container                | Task                                      | Pod                            |
+| Technology               | Runs on AWS native technology             | Runs on top of Kubernetes      |
