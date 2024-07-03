@@ -59,6 +59,7 @@ By default, your EC2 instances are placed in a network called the default Amazon
 
 ### Containerisation
 .A container is a standardized unit that packages up your code and all of its dependencies. This package is designed to run reliably on any platform, because the container creates its own independent environment. This makes it easy to carry workloads from one place to another, such as from development to production or from on-premises to the cloud.  
+Helsp when using micro service or serivce oriented architecture, Also helps in scaling up and down
 
 
 ### DOCKER
@@ -80,6 +81,49 @@ Kubernetes is a portable platform for managing containerized workloads and servi
 
 | Concept                  | Amazon ECS                                | Amazon EKS                     |
 |--------------------------|-------------------------------------------|--------------------------------|
-| Instance with ECS Agent  | Container instance                        | Worker node                    |
+| Instance                 | Container instance                        | Worker node                    |
 | Container                | Task                                      | Pod                            |
 | Technology               | Runs on AWS native technology             | Runs on top of Kubernetes      |
+
+
+### Serverless computing
+### Fargate
+Amazon ECS Fargate is a serverless compute engine for Amazon ECS & EKS that allows you to run containers
+It  Fargate scales and manages the infrastructure
+![alt text](images/image4.png)
+
+### Lambda
+serverless compute engine for Runs only on triggers that we need to set. Used for code that have runtime of less than 50 mmins
+
+
+### Networking 
+Networking is how you connect computers around the world and allow them to communicate with one another. 
+
+ IPV4 NOTATION - 4 byte data - 
+ ![alt text](images/image5.png)
+
+ Classless Inter-Domain Routing (CIDR) notation. CIDR notation is a compressed way of specifying a range of IP addresses.
+ ![alt text](images/image6.png)
+
+
+ ### Amazon VPC 
+ VPC or Virtual Private Cloud is like gate keeper, nothing can come in and out until you allow it
+
+Once you create your VPC then you create many subnets and inside each subnet we can then create an ec2 instance inorder to get control of more granular level like can keep some subnets private and some public
+
+
+Internet Gateway - Like a modem connects internet to computer, this connects internet to our vpc once created it must also be connected
+
+Virtual Private gateway - inorder to allow traffic to flow between aws and our private institution  
+
+Route Table - 
+![alt text](images/image7.png)
+
+#### Network ACL
+Think of a network ACL as a firewall at the subnet level. A network ACL enables you to control what kind of traffic is allowed to enter or leave your subnet. VPC is for your all subnet
+Network ACL’s are considered stateless, so you need to include both the inbound and outbound ports used for the protocol. If you don’t include the outbound range, your server would respond but the traffic would never leave the subnet.   
+
+
+#### Security Groups
+firewall called a security group. The default configuration of a security group blocks all inbound traffic and allows all outbound traffic . security groups are stateful, meaning they will remember if a connection is originally initiated by the EC2 instance or from the outside and temporarily allow traffic to respond without having to modify the inbound rules.   
+
