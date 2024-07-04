@@ -127,3 +127,76 @@ Network ACL’s are considered stateless, so you need to include both the inboun
 #### Security Groups
 firewall called a security group. The default configuration of a security group blocks all inbound traffic and allows all outbound traffic . security groups are stateful, meaning they will remember if a connection is originally initiated by the EC2 instance or from the outside and temporarily allow traffic to respond without having to modify the inbound rules.   
 
+
+
+### Storage Types on AWS
+AWS storage services are grouped into three different categories: block storage, file storage, and object storage.
+
+1. File Storage - 
+    place your files in a tree-like hierarchy that consists of folders and subfolders.
+    Each file has metadata such as file name, file size, and the date the file was created. ideal when you require centralized access to files that need to be easily shared and managed by multiple host computers. mounted onto multiple hosts and requires file locking and integration with existing file system communication protocols
+
+
+2. Block Storage
+    splits files into fixed-size chunks of data called blocks that have their own addresses. Since each block is addressable, blocks can be retrieved efficiently. Outside of the address, there is no additional metadata associated with each block.
+
+
+3. Object Storage
+
+    Objects, much like files, are also treated as a single unit of data when stored. However, unlike file storage, these objects are stored in a flat structure instead of a hierarchy. 
+
+Block storage in the cloud is analogous to direct-attached storage (DAS) or a storage area network (SAN).
+File storage systems are often supported with a network attached storage (NAS) server.
+
+
+### Amazon EC2 Instance Store
+rovides temporary block-level storage for your instance.. This storage is located on disks that are physically attached to the host computer.
+Instance store is ideal if you are hosting applications that replicate data to other EC2 instances, such as Hadoop clusters.
+
+
+### Amazon EBS
+Amazon EBS is a block-level storage device that you can attach to an Amazon EC2 instance. These storage devices are called Amazon EBS volumes
+You can detach an EBS volume from one EC2 instance and attach it to another EC2 instance in the same Availability Zone, to access the data on it.
+
+AWS announced the Amazon EBS multi-attach feature that enables volumes to be attached to multiple EC2 instances at one time
+
+Its external to ec2 means even if ec2 goes down ebs is still there
+Increase the volume size, as long as it doesn’t increase above the maximum size limit. For EBS volumes, the maximum amount of storage you can have is 16 TB.Attach multiple volumes to a single Amazon EC2 instance. EC2 has a one-to-many relationship with EBS volumes.
+
+There are two main categories of Amazon EBS volumes: solid-state drives (SSDs) and hard-disk drives (HDDs). SSDs provide strong performance for random input/output (I/O), while HDDs provide strong performance for sequential I/O. 
+
+
+### EBS Snapshots
+ EBS volumes consist of the data from your Amazon EC2 instance, you’ll want to take backups of these volumes, called snapshots
+
+
+ ### S3
+  Amazon S3 is an object storage service. Object storage stores data in a flat structure, Everything is private in s3 by default. you have to store your objects in containers called buckets. You can’t upload any object, not even a single photo, to S3 without creating a bucket first.
+
+ You use S3 versioning! Versioning enables you to keep multiple versions of a single object in the same bucket. This allows you to preserve old versions of an object without having to use different naming constructs, Deleting an object does not remove the object permanently. Instead, Amazon S3 puts a marker on the object that shows you tried to delete it.
+
+ Buckets can be in one of three states.
+
+    Unversioned (the default): No new or existing objects in the bucket have a version.
+    Versioning-enabled: This enables versioning for all objects in the bucket.
+    Versioning-suspended: This suspends versioning for new objects. All new objects in the bucket will not have a version. However, all existing objects keep their object versions
+
+#### AMAZON S3 STORAGE CLASSES
+| Storage Class                          | Description                                                                                                                                                                                                                                                                           |
+|----------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Amazon S3 Standard                     | General purpose storage for cloud applications, dynamic websites, content distribution, mobile and gaming applications, and big data analytics.                                                                                                                                        |
+| Amazon S3 Intelligent-Tiering          | Stores objects in frequent and infrequent access tiers, automatically moving data to the most cost-effective tier based on access patterns. Suitable for data with unknown or changing access patterns.                                                                             |
+| Amazon S3 Standard-Infrequent Access   | For data accessed less frequently but requiring rapid access when needed. Offers high durability, high throughput, low latency, and a low per-GB storage price with a per-GB retrieval fee. Ideal for long-term backups and disaster recovery files.                                  |
+| Amazon S3 One Zone-Infrequent Access   | Stores data in a single Availability Zone, costing 20% less than S3 Standard-IA. Ideal for infrequently accessed data that does not require the availability and resilience of S3 Standard or S3 Standard-IA. Good for secondary backups and easily re-creatable data.                 |
+| Amazon S3 Glacier Instant Retrieval    | Archive storage class that provides the lowest-cost storage for long-lived data rarely accessed and requires retrieval in milliseconds.                                                                                                                                                 |
+| Amazon S3 Glacier Flexible Retrieval   | Low-cost storage for archive data accessed 1-2 times per year and retrieved asynchronously. Up to 10% lower cost than S3 Glacier Instant Retrieval.                                                                                                                                     |
+| Amazon S3 Glacier Deep Archive         | The lowest-cost storage class for long-term retention and digital preservation of data accessed once or twice a year. Suitable for regulatory compliance in industries like Financial Services, Healthcare, and Public Sectors, where data is retained for 7 to 10 years or longer.       |
+| Amazon S3 Outposts                     | Delivers object storage to on-premises AWS Outposts environments.                                                                                                                                                                                                                       |
+
+#### AUTOMATE TIER TRANSITIONS WITH OBJECT LIFECYCLE MANAGEMENT
+When you define a lifecycle policy configuration for an object or group of objects u can choose to automate two actions: transition and expiration actions.
+
+    Transition actions are used to define when you should transition your objects to other storage class.
+
+    Expiration actions define when objects expire and should be permanently deleted
+
