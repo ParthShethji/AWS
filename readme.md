@@ -56,13 +56,15 @@ By default, your EC2 instances are placed in a network called the default Amazon
 
 ![alt text](images/image2.png)
 
+### CAAS
 
-### Containerisation
+
+#### Containerisation
 .A container is a standardized unit that packages up your code and all of its dependencies. This package is designed to run reliably on any platform, because the container creates its own independent environment. This makes it easy to carry workloads from one place to another, such as from development to production or from on-premises to the cloud.  
 Helsp when using micro service or serivce oriented architecture, Also helps in scaling up and down
 
 
-### DOCKER
+#### DOCKER
 Docker is a popular container runtime that simplifies the management of the entire operating system stack needed for container isolation, including networking and storage. Docker makes it easy to create, package, deploy, and run containers.
 ![alt text](image3.png)
 Containers share the same operating system and kernel as the host they exist on, whereas virtual machines contain their operating system.
@@ -74,10 +76,10 @@ To run and manage your containers, you need to install the Amazon ECS Container 
 
 To prepare your application to run on Amazon ECS, you create a task definition. The task definition is a text file, in JSON format, that describes one or more containers. A task definition is similar to a blueprint that describes the resources you need to run that container, such as CPU, memory, ports, images, storage, and networking information.
 
-### Kubernates
+#### Kubernates
 Kubernetes is a portable platform for managing containerized workloads and services
 
-## EC2, ECS, and EKS Terminology
+### EC2, ECS, and EKS Terminology
 
 | Concept                  | Amazon ECS                                | Amazon EKS                     |
 |--------------------------|-------------------------------------------|--------------------------------|
@@ -86,13 +88,13 @@ Kubernetes is a portable platform for managing containerized workloads and servi
 | Technology               | Runs on AWS native technology             | Runs on top of Kubernetes      |
 
 
-### Serverless computing
-### Fargate
+#### Serverless computing
+#### Fargate
 Amazon ECS Fargate is a serverless compute engine for Amazon ECS & EKS that allows you to run containers
 It  Fargate scales and manages the infrastructure
 ![alt text](images/image4.png)
 
-### Lambda
+#### Lambda
 serverless compute engine for Runs only on triggers that we need to set. Used for code that have runtime of less than 50 mmins
 
 
@@ -106,7 +108,7 @@ Networking is how you connect computers around the world and allow them to commu
  ![alt text](images/image6.png)
 
 
- ### Amazon VPC 
+ #### Amazon VPC 
  VPC or Virtual Private Cloud is like gate keeper, nothing can come in and out until you allow it
 
 Once you create your VPC then you create many subnets and inside each subnet we can then create an ec2 instance inorder to get control of more granular level like can keep some subnets private and some public
@@ -149,14 +151,16 @@ Block storage in the cloud is analogous to direct-attached storage (DAS) or a st
 File storage systems are often supported with a network attached storage (NAS) server.
 
 
-### Amazon EC2 Instance Store
+#### Amazon EC2 Instance Store
 rovides temporary block-level storage for your instance.. This storage is located on disks that are physically attached to the host computer.
 Instance store is ideal if you are hosting applications that replicate data to other EC2 instances, such as Hadoop clusters.
 
 
-### Amazon EBS
+#### Amazon EBS
 Amazon EBS is a block-level storage device that you can attach to an Amazon EC2 instance. These storage devices are called Amazon EBS volumes
 You can detach an EBS volume from one EC2 instance and attach it to another EC2 instance in the same Availability Zone, to access the data on it.
+
+ meant for data that changes frequently and needs to persist through instance stops, terminations, or hardware failures
 
 AWS announced the Amazon EBS multi-attach feature that enables volumes to be attached to multiple EC2 instances at one time
 
@@ -166,12 +170,14 @@ Increase the volume size, as long as it doesn’t increase above the maximum siz
 There are two main categories of Amazon EBS volumes: solid-state drives (SSDs) and hard-disk drives (HDDs). SSDs provide strong performance for random input/output (I/O), while HDDs provide strong performance for sequential I/O. 
 
 
-### EBS Snapshots
+#### EBS Snapshots
  EBS volumes consist of the data from your Amazon EC2 instance, you’ll want to take backups of these volumes, called snapshots
 
 
- ### S3
+ #### S3
   Amazon S3 is an object storage service. Object storage stores data in a flat structure, Everything is private in s3 by default. you have to store your objects in containers called buckets. You can’t upload any object, not even a single photo, to S3 without creating a bucket first.
+
+  If your data doesn’t change that often use this
 
  You use S3 versioning! Versioning enables you to keep multiple versions of a single object in the same bucket. This allows you to preserve old versions of an object without having to use different naming constructs, Deleting an object does not remove the object permanently. Instead, Amazon S3 puts a marker on the object that shows you tried to delete it.
 
@@ -193,6 +199,10 @@ There are two main categories of Amazon EBS volumes: solid-state drives (SSDs) a
 | Amazon S3 Glacier Deep Archive         | The lowest-cost storage class for long-term retention and digital preservation of data accessed once or twice a year. Suitable for regulatory compliance in industries like Financial Services, Healthcare, and Public Sectors, where data is retained for 7 to 10 years or longer.       |
 | Amazon S3 Outposts                     | Delivers object storage to on-premises AWS Outposts environments.                                                                                                                                                                                                                       |
 
+
+#### Amazon Elastic File System (Amazon EFS) and Amazon FSx
+
+
 #### AUTOMATE TIER TRANSITIONS WITH OBJECT LIFECYCLE MANAGEMENT
 When you define a lifecycle policy configuration for an object or group of objects u can choose to automate two actions: transition and expiration actions.
 
@@ -200,3 +210,37 @@ When you define a lifecycle policy configuration for an object or group of objec
 
     Expiration actions define when objects expire and should be permanently deleted
 
+#### EFS & FSX
+
+| Service                             | Characteristic                                                    |
+|-------------------------------------|-------------------------------------------------------------------|
+| Amazon Elastic File System (EFS)    | Fully managed NFS file system.                                    |
+| Amazon FSx for Windows File Server  | Fully managed file server built on Windows Server that supports the SMB protocol. |
+| Amazon FSx for Lustre               | Fully managed Lustre file system that integrates with S3.         |
+Amazon EFS and Amazon FSx can be mounted onto multiple EC2 instances.
+
+
+### Databases
+
+#### WHAT IS A RELATIONAL DATABASE?
+A relational database organizes data into tables. Data in one table can be linked to data in other tables to create relationships—hence, the relational part of the name.
+
+
+UNMANAGED AND MANAGED DATABASES
+
+Unmanaged - ![alt text](images/image8.png)
+
+managed - AWS is responsible for and has control over the hardware and underlying infrastructure, and you are responsible and have control over management of the host and database.Managed Database
+
+#### Amazon RDS
+enables you to create and manage relational databases in the cloud without the operational burden of traditional database management. Amazon RDS is built off of compute and storage. The compute portion is called the DB (database) instance, 
+Underneath the DB instance is an EC2 instance. However, this instance is managed through the Amazon RDS console instead of the Amazon EC2 console
+the DB instance uses Amazon Elastic Block Store (EBS) volumes as its storage layer. 
+
+When you enable Amazon RDS Multi-AZ, Amazon RDS creates a redundant copy of your database in another AZ. You end up with two copies of your database: a primary copy in a subnet in one AZ and a standby copy in a subnet in a second AZ.   
+
+#### Amazon DynamoDB
+fully managed NoSQL database service. automatically spreads the data and traffic for your tables over a sufficient number of servers to handle your throughput and storage
+
+Components
+A table is a collection of items, and each item is a collection of attributes.  DynamoDB uses primary keys to uniquely identify each item in a table and secondary indexes to provide more querying flexibility.    
