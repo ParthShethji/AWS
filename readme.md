@@ -244,3 +244,86 @@ fully managed NoSQL database service. automatically spreads the data and traffic
 
 Components
 A table is a collection of items, and each item is a collection of attributes.  DynamoDB uses primary keys to uniquely identify each item in a table and secondary indexes to provide more querying flexibility.    
+
+
+### Monitoring
+ The act of collecting, analyzing, and using data to make decisions or answer questions about your IT resources and systems is called monitoring.AWS resources create data you can monitor through metrics, logs, network traffic, events, and more
+
+ ### Cloud Watch
+ #### CloudWatch Logs Terminology
+
+ | Term          | Description                                                                                                                                                                      |
+|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Log Event     | A record of activity recorded by the application or resource being monitored, with a timestamp and an event message.                                                             |
+| Log Stream    | A sequence of log events that all belong to the same resource being monitored. For example, logs for an EC2 instance grouped together, allowing for filtering or querying.        |
+| Log Group     | Composed of log streams that share the same retention and permissions settings. Helps keep logs organized, such as grouping log streams from multiple EC2 instances into one.    |
+
+
+#### Alarm States
+| State               | Description                                                                                                               |
+|---------------------|---------------------------------------------------------------------------------------------------------------------------|
+| OK                  | The metric is within the defined threshold. Everything appears to be operating like normal.                               |
+| ALARM               | The metric is outside of the defined threshold. This could indicate an operational issue.                                 |
+| INSUFFICIENT_DATA   | The alarm has just started, the metric is not available, or not enough data is available for the metric to determine the alarm state. |
+
+
+
+### Optiisation
+
+#### What Is Availability?
+availability of a system is typically expressed as a percentage of uptime in a given year or as a number of nines. 
+
+Manage Replication, Redirection, and High Availability
+
+Create a Process for Replication
+You need to automate the replication of configuration files, software patches, and applications across instances.
+
+Address Customer Redirection
+To direct clients to different servers, you can use DNS or a load balancer. DNS updates can be slow, while a load balancer handles health checks and distributes traffic efficiently without delays.
+
+Understand the Types of High Availability
+There are two types of systems for high availability:
+
+Active-Passive: Only one server is active at a time. This is good for applications that store client session data on the server.
+Active-Active: Both servers are active, sharing the load. This is better for stateless applications as it improves scalability
+
+
+#### WHAT’S A LOAD BALANCER?
+Load balancing refers to the process of distributing tasks across a set of resources.
+A typical request for the application would start from the browser of the client. It’s sent to a load balancer. Then, it’s sent to one of the EC2 instances that hosts the application. The return traffic would go back through the load balancer and back to the client browser. Thus, the load balancer is directly in the path of the traffic.
+
+ ELB can prevent EC2 Auto Scaling from terminating the EC2 instance until all connections to that instance end, while preventing any new connections. That feature is called connection draining.
+
+ ![alt text](images/image9.png)
+
+ | Component      | Description                                                                                                                                                     |
+|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Listeners      | Clients connect to listeners, often referred to as client-side. To define a listener, specify a port and protocol based on the load balancer type. A single load balancer can have many listeners.  |
+| Target Groups  | Backend servers, or server-side, are defined in target groups. Here, you specify the type of backend, such as EC2 Instances, AWS Lambda functions, or IP addresses. Each target group also requires a health check definition. |
+| Rules          | Rules connect listeners to target groups. They include conditions, such as the client's source IP address, to determine which target group will receive the traffic. |
+
+
+
+#### ALB
+ - application load balancer it uses round robin algoithm
+It makes routing decisions based on the HTTP protocol like the URL path (/upload) and host, HTTP headers and method, as well as the source IP address of the client. 
+ALB has the ability to reply directly to the client with a fixed response like a custom HTML page. 
+
+If the requests to the backend vary in complexity where one request may need a lot more CPU time than another, then the least outstanding request algorithm is more appropriate.
+. In the case where requests need to be sent to the same backend server because the application is stateful, then use the sticky session feature. 
+
+#### NETWORK LOAD BALANCER
+.Network Load Balancer supports TCP, UDP, and TLS protocols.NLB operates at the connection layer, so it doesn’t understand what a HTTPS request is.NLB uses a flow hash routing algorithm These sessions are based on the source IP address of the client instead of a cookie.
+
+
+#### AutoScaling
+
+##### Vertical Scaling
+If there are too many requests sent to a single active-passive system, the active server will become unavailable and hopefully failover to the passive server. But this doesn’t solve anything. With active-passive, you need vertical scaling. This means increasing the size of the server. With EC2 instances, you select either a larger type or a different instance type. This can only be done while the instance is in a stopped state.
+
+##### Horizontal Scaling
+As mentioned above, for the application to work in an active-active system, it’s already created as stateless, not storing any client session on the server. This means that having two servers or having four wouldn’t require any application changes.
+
+#### Launch Templates
+![alt text](images/image10.png)
+Requires all the info that we have wgile creating app
